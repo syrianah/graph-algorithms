@@ -16,11 +16,6 @@ def read_data(path):
     return num_vertices, matrix, vertices_in
 
 
-# print(num_vertices)
-# print(matrix)
-# print(vertices_in)
-
-
 class graph_weights():
     def __init__(self, num_vertices, matrix, vertices_in):
         self.num_vertices = num_vertices
@@ -31,6 +26,15 @@ class graph_weights():
         self.header = {}
 
         self.update()
+
+    def __repr__(self):
+        return f"{self.header}\n{self.adj_dict}\n{self.edge_dict}\nAdjacency list:\n{self.repr_adjacency_list()}"
+
+    def repr_adjacency_list(self):
+        list_str = ""
+        for key in self.header.keys():
+            list_str += f"{key} : {' '.join(map(str, self.header[key]))}\n"
+        return list_str
 
     def adjacency_list(self):
         for i, row in enumerate(self.matrix):
@@ -85,9 +89,10 @@ class graph_weights():
     def del_edge(self, edge):
         if max(edge) <= self.num_vertices:
             print("Delete edge: " + str(edge))
-            self.matrix[edge[0]-1][edge[1]-1] = float('inf')
-            self.matrix[edge[1]-1][edge[0]-1] = float('inf')
+            self.matrix[edge[0]-1][edge[1]-1] = float("inf")
+            self.matrix[edge[1]-1][edge[0]-1] = float("inf")
             self.update()
+            del self.edge_dict[edge]
         else:
             print("Can't add, this edge ")
 

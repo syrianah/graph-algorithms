@@ -98,19 +98,19 @@ class graph():
         S = []
         S.append(v)
         u = self.neighbours(v)[0]
-        print(*S, sep=" ")
+        print(' '.join(map(str, S)))
         while len(S) != 0:
             S.append(u)
             print(*S, sep=" ")
             if len(S) == self.num_vertices and (u, v) in self.edge_dict:
-                print('CYKL HAMILTONA:', *S, v, sep=" ")
+                print('CYKL HAMILTONA:', ' '.join(map(str, S)), v)
             lu = [x for x in self.neighbours(u) if x not in S]
             if len(lu) != 0:
                 u = lu[0]
             else:
                 while len(S) != 0:
                     S.pop()
-                    print(*S, sep=" ")
+                    print(' '.join(map(str, S)))
                     if len(S) != 0:
                         w = S[-1]
                         lw = [x for x in self.neighbours(w) if x not in S]
